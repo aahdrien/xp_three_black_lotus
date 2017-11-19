@@ -33,9 +33,7 @@ export default class Scene {
 
     document.getElementById('three-container').appendChild(this.renderer.domElement)
 
-    window.addEventListener('resize', () => {
-      this.onWindowResize()
-    }, false)
+    window.addEventListener('resize', () => { this.onWindowResize() }, false)
   }
 
   // GETTERS AND SETTERS

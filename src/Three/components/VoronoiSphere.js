@@ -14,7 +14,7 @@ export default class VoronoiSphere {
 
     const phongShader = THREE.ShaderLib.phong;
     // this.sphereGeometry = new THREE.SphereGeometry(10, 80, 50)
-    this.sphereGeometry = new THREE.IcosahedronGeometry(10, 5)
+    this.sphereGeometry = new THREE.IcosahedronGeometry(10, 6)
 
     this.uniforms = THREE.UniformsUtils.merge([
       phongShader.uniforms,
