@@ -13,6 +13,7 @@ export default class VoronoiSphere {
     this.amplitude = 5
     this.shininess = 100
     this.flatShading = true
+    this.speed = 1000
 
     this.children = []
     this.attributes = []
@@ -37,7 +38,7 @@ export default class VoronoiSphere {
       side: THREE.FrontSide,
       lights: true,
       wireframe: false,
-      flatShading: flatShading,
+      flatShading,
     })
 
     this.sphere = new THREE.Mesh(this.sphereGeometry, this.sphereMaterial)
@@ -48,7 +49,7 @@ export default class VoronoiSphere {
     this.uniforms.u_amplitude.value = this.amplitude
     this.uniforms.shininess.value = this.shininess
 
-    this.uniforms.u_time.value += dt / 1000
+    this.uniforms.u_time.value += this.speed !== 0 ? dt / (2001 - this.speed) : 0
   }
 
   getThreeObject() {

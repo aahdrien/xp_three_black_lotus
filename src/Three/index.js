@@ -43,6 +43,7 @@ export default class ThreeWrapper {
     liveFolderSphere.add(this.voronoiSphere, 'resolution', 1, 20).step(1)
     liveFolderSphere.add(this.voronoiSphere, 'amplitude', 0, 40).step(0.5)
     liveFolderSphere.add(this.voronoiSphere, 'shininess', 1, 100).step(1)
+    liveFolderSphere.add(this.voronoiSphere, 'speed', 0, 2000).step(1)
     liveFolderSphere.addColor(this.sceneWrapper, 'frontLightColor')
     liveFolderSphere.addColor(this.sceneWrapper, 'sideLightColor')
     liveFolderSphere.addColor(this.sceneWrapper, 'backLightColor')
