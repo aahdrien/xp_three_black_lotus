@@ -31,7 +31,7 @@ uniform float opacity;
 #include <clipping_planes_pars_fragment>
 
 // CUSTOM
-varying vec3 vVoronoi;
+varying vec3 v_voronoi;
 
 void main() {
 
@@ -44,7 +44,7 @@ void main() {
 	#include <logdepthbuf_fragment>
 	#include <map_fragment>
 
-	diffuseColor = vec4(vVoronoi.x, vVoronoi.x, vVoronoi.x, 1.);
+	diffuseColor = vec4(v_voronoi.x, v_voronoi.x, v_voronoi.x, 1.);
 
 	#include <color_fragment>
 	#include <alphamap_fragment>

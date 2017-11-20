@@ -7,3 +7,20 @@ html, body {
 body {
   overflow: hidden;
 }
+
+.link-portfolio {
+  position: absolute;
+  top: 2vw;
+  left: 2vw;
+  font-family: "Roboto Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  color: #FFFFFF;
+  opacity: 0.2;
+  transition: opacity 0.25s;
+
+  &:hover {
+    opacity: 1;
+  }
+}

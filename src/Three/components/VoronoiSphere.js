@@ -1,28 +1,32 @@
 import * as THREE from 'three'
 
-import fragShader from '../shaders/thunderSphere.frag'
-import vertShader from '../shaders/thunderSphere.vert'
+import fragShader from '../shaders/voronoiSphere.frag'
+import vertShader from '../shaders/voronoiSphere.vert'
 
 /**
- * Class for the the THREE.js ThunderSphere.
+ * Class for the the THREE.js VoronoiSphere.
  */
 export default class VoronoiSphere {
-  constructor() {
-    this.name = 'ThunderSphere'
+  constructor(icoDetails = 6, flatShading = true) {
+    this.name = 'VoronoiSphere'
+    this.resolution = 5
+    this.amplitude = 5
+    this.shininess = 100
+    this.flatShading = true
+
     this.children = []
     this.attributes = []
 
     const phongShader = THREE.ShaderLib.phong;
-    // this.sphereGeometry = new THREE.SphereGeometry(10, 80, 50)
-    this.sphereGeometry = new THREE.IcosahedronGeometry(10, 6)
+    this.sphereGeometry = new THREE.IcosahedronGeometry(10, icoDetails)
 
     this.uniforms = THREE.UniformsUtils.merge([
       phongShader.uniforms,
       {
-        u_resolution: { type: 'vec2', value: new THREE.Vector2(5, 5) },
-        u_amplitude: { type: '1f', value: 5 },
+        u_resolution: { type: 'vec2', value: new THREE.Vector2(this.resolution, this.resolution) },
+        u_amplitude: { type: '1f', value: this.amplitude },
         u_time: { type: '1f', value: 0 },
-        shininess: { type: '1f', value: 100 },
+        shininess: { type: '1f', value: this.shininess },
       },
     ]);
 
@@ -33,13 +37,17 @@ export default class VoronoiSphere {
       side: THREE.FrontSide,
       lights: true,
       wireframe: false,
-      flatShading: true,
+      flatShading: flatShading,
     })
 
     this.sphere = new THREE.Mesh(this.sphereGeometry, this.sphereMaterial)
   }
 
   update(dt) {
+    this.uniforms.u_resolution.value = new THREE.Vector2(this.resolution, this.resolution)
+    this.uniforms.u_amplitude.value = this.amplitude
+    this.uniforms.shininess.value = this.shininess
+
     this.uniforms.u_time.value += dt / 1000
   }
 

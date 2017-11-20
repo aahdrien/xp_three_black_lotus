@@ -1,31 +1,10 @@
 precision mediump float;
 
-#define PHONG
-
-varying vec3 vViewPosition;
-
-#ifndef FLAT_SHADED
-	varying vec3 vNormal;
-#endif
-
-#include <common>
-#include <uv_pars_vertex>
-#include <uv2_pars_vertex>
-#include <displacementmap_pars_vertex>
-#include <envmap_pars_vertex>
-#include <color_pars_vertex>
-#include <fog_pars_vertex>
-#include <morphtarget_pars_vertex>
-#include <skinning_pars_vertex>
-#include <shadowmap_pars_vertex>
-#include <logdepthbuf_pars_vertex>
-#include <clipping_planes_pars_vertex>
-
 uniform vec2 u_resolution;
 uniform float u_amplitude;
 uniform float u_time;
 
-varying vec3 vVoronoi;
+varying vec3 v_voronoi;
 
 // Created by inigo quilez - iq/2013
 // License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
@@ -81,54 +60,12 @@ vec3 voronoi( in vec2 x ) {
 }
 
 void main() {
-	#include <uv_vertex>
-	#include <uv2_vertex>
-	#include <color_vertex>
-
-	#include <beginnormal_vertex>
-	#include <morphnormal_vertex>
-	#include <skinbase_vertex>
-	#include <skinnormal_vertex>
-	#include <defaultnormal_vertex>
-
-#ifndef FLAT_SHADED // Normal computed with derivatives when FLAT_SHADED
-	vNormal = normalize( transformedNormal );
-#endif
-
     vec2 st = position.xy/u_resolution.xy;
     st.x *= u_resolution.x/u_resolution.y;
 
-    vVoronoi = voronoi(st);
+    v_voronoi = voronoi(st);
 
-    // REPLACE #include <begin_vertex>
-        vec3 transformed = position + normal * vVoronoi.x * u_amplitude;
-    // END REPLACE
+    vec3 newPosition = position + normal * v_voronoi.x * u_amplitude;
 
-	#include <morphtarget_vertex>
-	#include <skinning_vertex>
-	#include <displacementmap_vertex>
-	#include <project_vertex>
-	#include <logdepthbuf_vertex>
-	#include <clipping_planes_vertex>
-
-	vViewPosition = - mvPosition.xyz;
-
-	#include <worldpos_vertex>
-	#include <envmap_vertex>
-	#include <shadowmap_vertex>
-	#include <fog_vertex>
-
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
 }
-//
-//void main() {
-//    vec2 st = uv/u_resolution.xy;
-//    st.x *= u_resolution.x/u_resolution.y;
-//
-//    // Scale
-//    st *= 10.080;
-//    vec3 c = voronoi(st);
-//
-//    vec3 newPosition = position + c;
-//
-//    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
-//}

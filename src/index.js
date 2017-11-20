@@ -1,13 +1,9 @@
 import 'babel-polyfill'
 
 import ThreeWrapper from './Three'
-import DevPanel from './components/DevPanel'
 
 // ------ GLOBALS --------
 let threeWrapper
-
-// DEV
-let devPanel
 
 // --- HTML ELEMENTS -----
 
@@ -31,11 +27,7 @@ function animate() {
   if (dt > FPS_INTERVAL) {
     lastDate = now - (dt % FPS_INTERVAL)
 
-    devPanel.beginCapture()
-
     threeWrapper.update(dt)
-
-    devPanel.endCapture()
   }
 }
 
@@ -43,6 +35,5 @@ function animate() {
 
 // -------- MAIN ---------
 threeWrapper = new ThreeWrapper()
-devPanel = new DevPanel(false, threeWrapper)
 
 animate()
