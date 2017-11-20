@@ -7,26 +7,27 @@ const OrbitControls = require('three-orbit-controls')(THREE)
  */
 export default class Scene {
   constructor(width, height, devicePixelRatio) {
+    this.backgroundColor = 0x030303
+    this.frontLightColor = 0xca3aff
+    this.sideLightColor = 0x39fff5
+    this.backLightColor = 0xca3aff
+
     this.scene = new THREE.Scene()
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-    this.renderer.setClearColor(0x030303, 1)
+    this.renderer.setClearColor(this.backgroundColor, 1)
     this.renderer.setSize(width, height)
     this.renderer.setPixelRatio(devicePixelRatio)
 
     // CAMERA
     this.camera = new THREE.PerspectiveCamera(70, width / height, 0.1, 1000)
-    this.camera.position.set(0, 0, 30)
+    this.camera.position.set(0, 0, 60)
     this.activeCamera = this.camera
 
     this.camera.lookAt(new THREE.Vector3())
     this.controls = new OrbitControls(this.camera)
 
     // LIGHTS
-    this.frontLightColor = 0xca3aff
-    this.sideLightColor = 0x39fff5
-    this.backLightColor = 0xca3aff
-
     this.frontLight = new THREE.DirectionalLight(this.frontLightColor, 0.8)
     this.frontLight.position.set(2, 2, 5).normalize()
 
@@ -69,6 +70,8 @@ export default class Scene {
   }
 
   render() {
+    this.renderer.setClearColor(this.backgroundColor, 1)
+
     this.frontLight.color.setHex(this.frontLightColor)
     this.sideLight.color.setHex(this.sideLightColor)
     this.secondSideLight.color.setHex(this.sideLightColor)

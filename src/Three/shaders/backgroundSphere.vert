@@ -2,6 +2,7 @@ precision mediump float;
 
 uniform vec2 u_resolution;
 uniform float u_amplitude;
+uniform bool u_is_noise;
 uniform float u_time;
 
 varying vec3 v_voronoi;
@@ -60,12 +61,16 @@ vec3 voronoi( in vec2 x ) {
 }
 
 void main() {
-    vec2 st = position.xy/u_resolution.xy;
-    st.x *= u_resolution.x/u_resolution.y;
+    if (u_is_noise) {
+        vec2 st = position.xy/u_resolution.xy;
+        st.x *= u_resolution.x/u_resolution.y;
 
-    v_voronoi = voronoi(st);
+        v_voronoi = voronoi(st);
 
-    vec3 newPosition = position + normal * v_voronoi.x * u_amplitude;
+        vec3 newPosition = position + normal * v_voronoi.x * u_amplitude;
 
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+    } else {
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
 }

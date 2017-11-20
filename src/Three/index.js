@@ -48,9 +48,13 @@ export default class ThreeWrapper {
     liveFolderSphere.addColor(this.sceneWrapper, 'backLightColor')
     liveFolderSphere.open()
 
+    const liveFolderBgSphere = liveFolder.addFolder('BACKGROUND SPHERE')
+    liveFolderBgSphere.add(this.backgroundSphere, 'backgroundNoise')
+    liveFolderBgSphere.addColor(this.backgroundSphere, 'backgroundColor')
+    liveFolderBgSphere.open()
+
     const liveFolderBg = liveFolder.addFolder('BACKGROUND')
-    liveFolderBg.add(this.backgroundSphere, 'backgroundNoise')
-    liveFolderBg.addColor(this.backgroundSphere, 'backgroundColor')
+    liveFolderBg.addColor(this.sceneWrapper, 'backgroundColor')
     liveFolderBg.open()
 
     liveFolder.open()

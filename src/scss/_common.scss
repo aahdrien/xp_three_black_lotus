@@ -8,10 +8,20 @@ body {
   overflow: hidden;
 }
 
-.link-portfolio {
+.project-title {
   position: absolute;
   top: 2vw;
   left: 2vw;
+  font-family: "Roboto Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  color: #FFFFFF;
+  opacity: 0.2;
+}
+
+.link {
+  position: absolute;
   font-family: "Roboto Mono", monospace;
   font-size: 12px;
   letter-spacing: 1.5px;
@@ -22,5 +32,15 @@ body {
 
   &:hover {
     opacity: 1;
+  }
+
+  &-portfolio {
+    top: 4vw;
+    left: 2vw;
+  }
+
+  &-github {
+    top: 6vw;
+    left: 2vw;
   }
 }
